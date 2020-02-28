@@ -73,7 +73,7 @@ Partial Class Pause
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = Global.Trivia_Disco.My.Resources.Resources.pause_bg
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(425, 250)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button2)
