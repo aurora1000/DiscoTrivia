@@ -6,7 +6,7 @@ Public Class Form4
     Public score As Integer = 0
     Dim questions(100) As Integer
     Dim question_ID As String
-    Public speed As Boolean
+    Public speed As Boolean = False
     Private Sub ProgressBar1_Click(sender As Object, e As EventArgs) Handles ProgressBar1.Click
 
     End Sub
@@ -24,6 +24,7 @@ Public Class Form4
         End If
 
         If (time = 0) Then
+            speed = True
             Button1.Enabled = False
             Button2.Enabled = False
             Button3.Enabled = False
@@ -45,7 +46,6 @@ Public Class Form4
         Try
             connection.Open()
             Dim read As MySqlDataReader = command.ExecuteReader
-
 
             While read.Read
                 Label2.Text = Convert.ToString(read("question"))
@@ -246,6 +246,7 @@ Public Class Form4
 
 
                 While read.Read
+                    Label3.Text = Convert.ToString(score)
                     Label2.Text = Convert.ToString(read("question"))
                     Button1.Text = Convert.ToString(read("choice_1"))
                     Button2.Text = Convert.ToString(read("choice_2"))

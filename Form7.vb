@@ -7,7 +7,8 @@ Public Class Form7
     Dim life As Byte = 3
     Dim questions(100) As Integer
     Dim question_ID As String
-    Public survival As Boolean
+    Public survival As Boolean = False
+
     Private Sub Form7_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         connection = New MySqlConnection

@@ -33,6 +33,7 @@ Partial Class Form4
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -159,12 +160,22 @@ Partial Class Form4
         Me.PictureBox1.TabIndex = 7
         Me.PictureBox1.TabStop = False
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(170, 93)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(19, 13)
+        Me.Label3.TabIndex = 8
+        Me.Label3.Text = "00"
+        '
         'Form4
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.Trivia_Disco.My.Resources.Resources.speed_mode_start
         Me.ClientSize = New System.Drawing.Size(589, 666)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button3)
@@ -193,4 +204,5 @@ Partial Class Form4
     Friend WithEvents Button4 As Button
     Friend WithEvents Timer2 As Timer
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents Label3 As Label
 End Class

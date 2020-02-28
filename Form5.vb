@@ -3,25 +3,25 @@ Public Class Form5
     Dim origin As Boolean
     Private Sub Form5_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        If (Form4.speed) Then
+        If Form4.speed Then
             Dim score_int As Integer = Form4.score
             If (score_int < 10) Then
                 Label1.Text = "0" + Convert.ToString(score_int)
             Else
-
                 Label1.Text = Convert.ToString(score_int)
             End If
+            Form4.speed = False
             origin = True
             Form4.Close()
 
-        ElseIf (Form7.survival) Then
+        ElseIf Form7.survival Then
             Dim score_int As Integer = Form7.score
             If (score_int < 10) Then
                 Label1.Text = "0" + Convert.ToString(score_int)
             Else
-
                 Label1.Text = Convert.ToString(score_int)
             End If
+            Form7.survival = False
             origin = False
             Form7.Close()
         End If
