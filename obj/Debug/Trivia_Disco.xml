@@ -72,12 +72,37 @@ Trivia_Disco
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:Trivia_Disco.My.Resources.Resources.loading">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Trivia_Disco.My.Resources.Resources.loading2">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Trivia_Disco.My.Resources.Resources.loading3">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Trivia_Disco.My.Resources.Resources.loading4">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:Trivia_Disco.My.Resources.Resources.multi_player_disco">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
 <member name="P:Trivia_Disco.My.Resources.Resources.multi_player_hover">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Trivia_Disco.My.Resources.Resources.multiplayer_start">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>

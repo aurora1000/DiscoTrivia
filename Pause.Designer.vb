@@ -63,7 +63,7 @@ Partial Class Pause
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Magneto", 39.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(3, 61)
+        Me.Label1.Location = New System.Drawing.Point(4, 61)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(416, 66)
         Me.Label1.TabIndex = 2

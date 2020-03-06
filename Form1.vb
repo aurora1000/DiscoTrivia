@@ -59,4 +59,15 @@
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
 
     End Sub
+
+    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
+
+    End Sub
+
+    Private Sub Panel2_Click(sender As Object, e As EventArgs) Handles Panel2.Click
+        Form8.StartPosition = FormStartPosition.Manual
+        Form8.Location = Me.Location
+        Form8.Show()
+        Me.Close()
+    End Sub
 End Class

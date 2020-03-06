@@ -74,6 +74,13 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="client_wait.Designer.vb">
+      <DependentUpon>client_wait.vb</DependentUpon>
+    </Compile>
+    <Compile Include="client_wait.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="connection.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +124,24 @@
     <Compile Include="Form7.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form8.Designer.vb">
+      <DependentUpon>Form8.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form8.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="host_wait.Designer.vb">
+      <DependentUpon>host_wait.vb</DependentUpon>
+    </Compile>
+    <Compile Include="host_wait.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="multiplayer_start.Designer.vb">
+      <DependentUpon>multiplayer_start.vb</DependentUpon>
+    </Compile>
+    <Compile Include="multiplayer_start.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -138,8 +163,13 @@
     <Compile Include="Pause.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="TCPControl.vb" />
+    <Compile Include="TCPControlClient.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="client_wait.resx">
+      <DependentUpon>client_wait.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
@@ -160,6 +190,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form7.resx">
       <DependentUpon>Form7.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form8.resx">
+      <DependentUpon>Form8.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="host_wait.resx">
+      <DependentUpon>host_wait.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="multiplayer_start.resx">
+      <DependentUpon>multiplayer_start.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -272,6 +311,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\survival_mode_after.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\multiplayer_start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading3.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading4.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
