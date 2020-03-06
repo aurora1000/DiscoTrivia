@@ -1,6 +1,7 @@
 ﻿Imports System.Net.Sockets
 Imports System.Text
 Public Class Form8
+
     Private Sub Form8_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
@@ -48,4 +49,10 @@ Public Class Form8
     Private Sub PictureBox3_MouseLeave(sender As Object, e As EventArgs) Handles PictureBox3.MouseLeave
         PictureBox3.Image = New Bitmap(Trivia_Disco.My.Resources.Resources.cancel_white)
     End Sub
+
+    Private Sub Button1_EnabledChanged(sender As Object, e As EventArgs) Handles Button1.EnabledChanged
+
+    End Sub
+
+
 End Class

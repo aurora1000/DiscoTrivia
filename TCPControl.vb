@@ -27,7 +27,7 @@ Public Class TCPControl
         CommThread.Start()
     End Sub
 
-    Private Sub Listening()
+    Public Sub Listening()
         ' CREATE LISTENER LOOP
         Do Until IsListening = False
             ' ACCEPT INCOMING CONNECTIONS
