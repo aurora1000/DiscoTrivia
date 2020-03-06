@@ -33,4 +33,19 @@ Public Class Form8
         Me.Enabled = False
         client_wait.Show()
     End Sub
+
+    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
+        index_screen.StartPosition = FormStartPosition.Manual
+        index_screen.Location = Me.Location
+        index_screen.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox3_MouseEnter(sender As Object, e As EventArgs) Handles PictureBox3.MouseEnter
+        PictureBox3.Image = New Bitmap(Trivia_Disco.My.Resources.Resources.cancel)
+    End Sub
+
+    Private Sub PictureBox3_MouseLeave(sender As Object, e As EventArgs) Handles PictureBox3.MouseLeave
+        PictureBox3.Image = New Bitmap(Trivia_Disco.My.Resources.Resources.cancel_white)
+    End Sub
 End Class

@@ -12,7 +12,7 @@ Public Class TCPControl
     Public ServerPort As Integer = 64555
     Public Server As TcpListener
 
-    Private CommThread As Thread
+    Public CommThread As Thread
     Public IsListening As Boolean = True
 
     ' CLIENTS
