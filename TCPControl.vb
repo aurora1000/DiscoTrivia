@@ -22,7 +22,6 @@ Public Class TCPControl
     Public Sub New()
         Server = New TcpListener(ServerIP, ServerPort)
         Server.Start()
-
         CommThread = New Thread(New ThreadStart(AddressOf Listening))
         CommThread.Start()
     End Sub
@@ -34,7 +33,7 @@ Public Class TCPControl
             If Server.Pending = True Then
                 Client = Server.AcceptTcpClient
                 ClientData = New StreamReader(Client.GetStream)
-
+                ResponseStream = New StreamWriter(Client.GetStream)
             End If
 
             ' RAISE EVENT FOR INCOMING MESSAGES

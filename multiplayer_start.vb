@@ -1,6 +1,7 @@
 ﻿Public Class multiplayer_start
     Private time As Byte = 3
     Public player As String
+    Public ip_server As String
     Private Sub multiplayer_start_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Timer1.Start()
     End Sub
@@ -13,6 +14,7 @@
             If player = "host" Then
                 Timer1.Stop()
                 'MessageBox.Show("Trial Your the host!")
+                Form4.PictureBox1.Hide()
                 Form4.player = "host"
                 Form4.StartPosition = FormStartPosition.Manual
                 Form4.Location = Me.Location
@@ -21,6 +23,8 @@
             ElseIf player = "client" Then
                 Timer1.Stop()
                 'MessageBox.Show("Trial Your the client!")
+                Form4.ip_server = ip_server
+                Form4.PictureBox1.Hide()
                 Form4.player = "client"
                 Form4.StartPosition = FormStartPosition.Manual
                 Form4.Location = Me.Location

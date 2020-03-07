@@ -8,6 +8,12 @@ Public Class Form4
     Dim question_ID As String
     Public speed As Boolean = False
     Public player As String
+    Public ip_server As String
+
+    Private Server As TCPControl
+    Private Client As TCPControlClient
+
+    Public opp_score As Integer
     Private Sub ProgressBar1_Click(sender As Object, e As EventArgs) Handles ProgressBar1.Click
 
     End Sub
@@ -25,19 +31,78 @@ Public Class Form4
         End If
 
         If (time = 0) Then
-            speed = True
-            Button1.Enabled = False
-            Button2.Enabled = False
-            Button3.Enabled = False
-            Button4.Enabled = False
-            Form5.StartPosition = FormStartPosition.Manual
-            Form5.Location = Me.Location
-            Form5.BackgroundImage = New Bitmap(Trivia_Disco.My.Resources.Resources.speed_mode_after)
-            Form5.PictureBox3.Hide()
-            Form5.PictureBox1.Show()
-            Form5.Show()
-            Me.Hide()
+            If player = "host" Then
+                multiplayer_result.Label3.Text = score.ToString
+                Server = New TCPControl
+                AddHandler Server.MessageReceived, AddressOf OnLineReceived
+
+            ElseIf player = "client" Then
+                multiplayer_result.Label3.Text = score.ToString
+                Client = New TCPControlClient(ip_server, 64555)
+
+                If Client.Connected = True Then
+                    Client.Send(score)
+                End If
+                'multiplayer_result.Label3.Text = score.ToString
+                'multiplayer_result.my_score = score
+                'multiplayer_result.player = "client"
+                'multiplayer_result.ip_server = ip_server
+                'multiplayer_result.StartPosition = FormStartPosition.Manual
+                'multiplayer_result.Location = Me.Location
+                'multiplayer_result.Show()
+                'Me.Close()
+                AddHandler Client.MessageReceived, AddressOf OnLineReceivedClient
+            Else
+                speed = True
+                Button1.Enabled = False
+                Button2.Enabled = False
+                Button3.Enabled = False
+                Button4.Enabled = False
+                Form5.StartPosition = FormStartPosition.Manual
+                Form5.Location = Me.Location
+                Form5.BackgroundImage = New Bitmap(Trivia_Disco.My.Resources.Resources.speed_mode_after)
+                Form5.PictureBox3.Hide()
+                Form5.PictureBox1.Show()
+                Form5.Show()
+                Me.Hide()
+            End If
         End If
+    End Sub
+
+    Private Sub OnLineReceived(sender As TCPControl, Data As Integer)
+        Server.Send(score)
+        Server.IsListening = False
+        Server.Server.Stop()
+        opp_score = Data
+        CloseMe()
+    End Sub
+
+    Private Sub OnLineReceivedClient(sender As TCPControl, Data As Integer)
+        Client.isListening = False
+        Client.Client.Close()
+        opp_score = Data
+        CloseMe()
+    End Sub
+
+    Private Sub CloseMe()
+        If Me.InvokeRequired Then
+            Me.Invoke(New MethodInvoker(AddressOf CloseMe))
+            Exit Sub
+        End If
+        multiplayer_result.Label4.Text = opp_score.ToString
+
+        If opp_score > score Then
+            multiplayer_result.PictureBox1.Hide()
+            multiplayer_result.PictureBox2.Show()
+        ElseIf score > opp_score Then
+            multiplayer_result.PictureBox2.Hide()
+            multiplayer_result.PictureBox1.Show()
+        End If
+        multiplayer_result.my_score = score
+        multiplayer_result.StartPosition = FormStartPosition.Manual
+        multiplayer_result.Location = Me.Location
+        multiplayer_result.Show()
+        Me.Close()
     End Sub
 
     Private Sub Form4_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -247,7 +312,7 @@ Public Class Form4
 
 
                 While read.Read
-                    Label3.Text = Convert.ToString(score)
+                    'Label3.Text = Convert.ToString(score)
                     Label2.Text = Convert.ToString(read("question"))
                     Button1.Text = Convert.ToString(read("choice_1"))
                     Button2.Text = Convert.ToString(read("choice_2"))
@@ -292,4 +357,5 @@ Public Class Form4
     Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
 
     End Sub
+
 End Class

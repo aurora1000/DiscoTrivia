@@ -11,6 +11,7 @@
 
         If Client.Connected = True Then
             Client.Send("Play Game")
+            multiplayer_start.ip_server = RichTextBox1.Text
             multiplayer_start.player = player
             multiplayer_start.StartPosition = FormStartPosition.Manual
             multiplayer_start.Location = Form8.Location

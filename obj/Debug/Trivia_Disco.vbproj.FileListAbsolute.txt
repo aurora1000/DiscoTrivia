@@ -25,3 +25,4 @@ C:\Users\admin\source\repos\Trivia_Disco\Trivia_Disco\obj\Debug\Trivia_Disco.For
 C:\Users\admin\source\repos\Trivia_Disco\Trivia_Disco\obj\Debug\Trivia_Disco.multiplayer_start.resources
 C:\Users\admin\source\repos\Trivia_Disco\Trivia_Disco\obj\Debug\Trivia_Disco.host_wait.resources
 C:\Users\admin\source\repos\Trivia_Disco\Trivia_Disco\obj\Debug\Trivia_Disco.client_wait.resources
+C:\Users\admin\source\repos\Trivia_Disco\Trivia_Disco\obj\Debug\Trivia_Disco.multiplayer_result.resources
