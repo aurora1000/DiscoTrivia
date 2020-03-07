@@ -94,9 +94,15 @@ Public Class Form4
         If opp_score > score Then
             multiplayer_result.PictureBox1.Hide()
             multiplayer_result.PictureBox2.Show()
+            multiplayer_result.PictureBox3.Hide()
         ElseIf score > opp_score Then
             multiplayer_result.PictureBox2.Hide()
             multiplayer_result.PictureBox1.Show()
+            multiplayer_result.PictureBox3.Hide()
+        ElseIf score = opp_score Then
+            multiplayer_result.PictureBox2.Hide()
+            multiplayer_result.PictureBox1.Hide()
+            multiplayer_result.PictureBox3.Show()
         End If
         multiplayer_result.my_score = score
         multiplayer_result.StartPosition = FormStartPosition.Manual
