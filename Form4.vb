@@ -7,6 +7,7 @@ Public Class Form4
     Dim questions(100) As Integer
     Dim question_ID As String
     Public speed As Boolean = False
+    Public player As String
     Private Sub ProgressBar1_Click(sender As Object, e As EventArgs) Handles ProgressBar1.Click
 
     End Sub
