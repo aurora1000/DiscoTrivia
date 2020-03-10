@@ -52,6 +52,11 @@ Trivia_Disco
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:Trivia_Disco.My.Resources.Resources.draw">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:Trivia_Disco.My.Resources.Resources.heart_break">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.

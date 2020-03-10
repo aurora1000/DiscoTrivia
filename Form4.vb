@@ -1,10 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 Public Class Form4
     Public time As Byte = 60
-    Dim connection As MySqlConnection
-    Dim command As MySqlCommand
     Public score As Integer = 0
-    Dim questions(100) As Integer
     Dim question_ID As String
     Public speed As Boolean = False
     Public player As String
@@ -14,9 +11,10 @@ Public Class Form4
     Private Client As TCPControlClient
 
     Public opp_score As Integer
-    Private Sub ProgressBar1_Click(sender As Object, e As EventArgs) Handles ProgressBar1.Click
 
-    End Sub
+    Private conn As connection
+
+
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         ProgressBar1.Increment(1)
         time = time - 1
@@ -43,14 +41,7 @@ Public Class Form4
                 If Client.Connected = True Then
                     Client.Send(score)
                 End If
-                'multiplayer_result.Label3.Text = score.ToString
-                'multiplayer_result.my_score = score
-                'multiplayer_result.player = "client"
-                'multiplayer_result.ip_server = ip_server
-                'multiplayer_result.StartPosition = FormStartPosition.Manual
-                'multiplayer_result.Location = Me.Location
-                'multiplayer_result.Show()
-                'Me.Close()
+
                 AddHandler Client.MessageReceived, AddressOf OnLineReceivedClient
             Else
                 speed = True
@@ -112,22 +103,18 @@ Public Class Form4
     End Sub
 
     Private Sub Form4_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        connection = New MySqlConnection
-        command = New MySqlCommand("select * from trivia", connection)
-        connection.ConnectionString = "server=localhost;userid=root;password=P@ssw0rd;database=disco_trivia"
-        Try
-            connection.Open()
-            Dim read As MySqlDataReader = command.ExecuteReader
 
-            While read.Read
-                Label2.Text = Convert.ToString(read("question"))
-                Button1.Text = Convert.ToString(read("choice_1"))
-                Button2.Text = Convert.ToString(read("choice_2"))
-                Button3.Text = Convert.ToString(read("choice_3"))
-                Button4.Text = Convert.ToString(read("choice_4"))
-                question_ID = Convert.ToString(read("id"))
+        Try
+            conn = New connection("select * from trivia order by RAND() Limit 1")
+            While conn.read.Read
+                Label2.Text = Convert.ToString(conn.read("question"))
+                Button1.Text = Convert.ToString(conn.read("choice_1"))
+                Button2.Text = Convert.ToString(conn.read("choice_2"))
+                Button3.Text = Convert.ToString(conn.read("choice_3"))
+                Button4.Text = Convert.ToString(conn.read("choice_4"))
+                question_ID = Convert.ToString(conn.read("id"))
             End While
-            connection.Close()
+            conn.Close()
         Catch ex As MySqlException
             MessageBox.Show(ex.Message)
         End Try
@@ -148,37 +135,33 @@ Public Class Form4
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        connection = New MySqlConnection
-        command = New MySqlCommand("select * from trivia where id = '" + question_ID + "'", connection)
-        connection.ConnectionString = "server=localhost;userid=root;password=P@ssw0rd;database=disco_trivia"
         Try
-            connection.Open()
-            Dim read As MySqlDataReader = command.ExecuteReader
-            While read.Read
-                If (Button1.Text = Convert.ToString(read("answer"))) Then
+            conn = New connection("select * from trivia where id = '" + question_ID + "'")
+            While conn.read.Read
+                If (Button1.Text = Convert.ToString(conn.read("answer"))) Then
                     Button1.BackColor = Color.DarkGreen
                     Button2.BackColor = Color.DarkRed
                     Button3.BackColor = Color.DarkRed
                     Button4.BackColor = Color.DarkRed
                     score = score + 1
-                ElseIf (Button1.Text <> Convert.ToString(read("answer"))) Then
+                ElseIf (Button1.Text <> Convert.ToString(conn.read("answer"))) Then
                     Button1.BackColor = Color.DarkRed
-                    If (Button2.Text = Convert.ToString(read("answer"))) Then
+                    If (Button2.Text = Convert.ToString(conn.read("answer"))) Then
                         Button2.BackColor = Color.DarkGreen
                         Button3.BackColor = Color.DarkRed
                         Button4.BackColor = Color.DarkRed
-                    ElseIf (Button3.Text = Convert.ToString(read("answer"))) Then
+                    ElseIf (Button3.Text = Convert.ToString(conn.read("answer"))) Then
                         Button3.BackColor = Color.DarkGreen
                         Button2.BackColor = Color.DarkRed
                         Button4.BackColor = Color.DarkRed
-                    ElseIf (Button4.Text = Convert.ToString(read("answer"))) Then
+                    ElseIf (Button4.Text = Convert.ToString(conn.read("answer"))) Then
                         Button4.BackColor = Color.DarkGreen
                         Button3.BackColor = Color.DarkRed
                         Button2.BackColor = Color.DarkRed
                     End If
                 End If
             End While
-            connection.Close()
+            conn.Close()
         Catch ex As MySqlException
             MessageBox.Show(ex.Message)
         End Try
@@ -186,38 +169,34 @@ Public Class Form4
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        connection = New MySqlConnection
-        command = New MySqlCommand("select * from trivia where id = '" + question_ID + "'", connection)
-        connection.ConnectionString = "server=localhost;userid=root;password=P@ssw0rd;database=disco_trivia"
         Try
-            connection.Open()
-            Dim read As MySqlDataReader = command.ExecuteReader
+            conn = New connection("select * from trivia where id = '" + question_ID + "'")
 
-            While read.Read
-                If (Button2.Text = Convert.ToString(read("answer"))) Then
+            While conn.read.Read
+                If (Button2.Text = Convert.ToString(conn.read("answer"))) Then
                     Button2.BackColor = Color.DarkGreen
                     Button1.BackColor = Color.DarkRed
                     Button3.BackColor = Color.DarkRed
                     Button4.BackColor = Color.DarkRed
                     score = score + 1
-                ElseIf (Button2.Text <> Convert.ToString(read("answer"))) Then
+                ElseIf (Button2.Text <> Convert.ToString(conn.read("answer"))) Then
                     Button2.BackColor = Color.DarkRed
-                    If (Button1.Text = Convert.ToString(read("answer"))) Then
+                    If (Button1.Text = Convert.ToString(conn.read("answer"))) Then
                         Button1.BackColor = Color.DarkGreen
                         Button3.BackColor = Color.DarkRed
                         Button4.BackColor = Color.DarkRed
-                    ElseIf (Button3.Text = Convert.ToString(read("answer"))) Then
+                    ElseIf (Button3.Text = Convert.ToString(conn.read("answer"))) Then
                         Button3.BackColor = Color.DarkGreen
                         Button1.BackColor = Color.DarkRed
                         Button4.BackColor = Color.DarkRed
-                    ElseIf (Button4.Text = Convert.ToString(read("answer"))) Then
+                    ElseIf (Button4.Text = Convert.ToString(conn.read("answer"))) Then
                         Button4.BackColor = Color.DarkGreen
                         Button3.BackColor = Color.DarkRed
                         Button1.BackColor = Color.DarkRed
                     End If
                 End If
             End While
-            connection.Close()
+            conn.Close()
         Catch ex As MySqlException
             MessageBox.Show(ex.Message)
         End Try
@@ -225,38 +204,35 @@ Public Class Form4
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        connection = New MySqlConnection
-        command = New MySqlCommand("select * from trivia where id = '" + question_ID + "'", connection)
-        connection.ConnectionString = "server=localhost;userid=root;password=P@ssw0rd;database=disco_trivia"
+        ''connection.ConnectionString = "server=85.10.205.173;port=3306;userid=disco_trivia_db;password=D1sc0tr1v1@;database=disco_trivia_db"
         Try
-            connection.Open()
-            Dim read As MySqlDataReader = command.ExecuteReader
+            conn = New connection("select * from trivia where id = '" + question_ID + "'")
 
-            While read.Read
-                If (Button3.Text = Convert.ToString(read("answer"))) Then
+            While conn.read.Read
+                If (Button3.Text = Convert.ToString(conn.read("answer"))) Then
                     Button3.BackColor = Color.DarkGreen
                     Button2.BackColor = Color.DarkRed
                     Button1.BackColor = Color.DarkRed
                     Button4.BackColor = Color.DarkRed
                     score = score + 1
-                ElseIf (Button3.Text <> Convert.ToString(read("answer"))) Then
+                ElseIf (Button3.Text <> Convert.ToString(conn.read("answer"))) Then
                     Button3.BackColor = Color.DarkRed
-                    If (Button2.Text = Convert.ToString(read("answer"))) Then
+                    If (Button2.Text = Convert.ToString(conn.read("answer"))) Then
                         Button2.BackColor = Color.DarkGreen
                         Button1.BackColor = Color.DarkRed
                         Button4.BackColor = Color.DarkRed
-                    ElseIf (Button1.Text = Convert.ToString(read("answer"))) Then
+                    ElseIf (Button1.Text = Convert.ToString(conn.read("answer"))) Then
                         Button1.BackColor = Color.DarkGreen
                         Button2.BackColor = Color.DarkRed
                         Button4.BackColor = Color.DarkRed
-                    ElseIf (Button4.Text = Convert.ToString(read("answer"))) Then
+                    ElseIf (Button4.Text = Convert.ToString(conn.read("answer"))) Then
                         Button4.BackColor = Color.DarkGreen
                         Button1.BackColor = Color.DarkRed
                         Button2.BackColor = Color.DarkRed
                     End If
                 End If
             End While
-            connection.Close()
+            conn.Close()
         Catch ex As MySqlException
             MessageBox.Show(ex.Message)
         End Try
@@ -264,38 +240,34 @@ Public Class Form4
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        connection = New MySqlConnection
-        command = New MySqlCommand("select * from trivia where id = '" + question_ID + "'", connection)
-        connection.ConnectionString = "server=localhost;userid=root;password=P@ssw0rd;database=disco_trivia"
         Try
-            connection.Open()
-            Dim read As MySqlDataReader = command.ExecuteReader
+            conn = New connection("select * from trivia where id = '" + question_ID + "'")
 
-            While read.Read
-                If (Button4.Text = Convert.ToString(read("answer"))) Then
+            While conn.read.Read
+                If (Button4.Text = Convert.ToString(conn.read("answer"))) Then
                     Button4.BackColor = Color.DarkGreen
                     Button2.BackColor = Color.DarkRed
                     Button3.BackColor = Color.DarkRed
                     Button1.BackColor = Color.DarkRed
                     score = score + 1
-                ElseIf (Button4.Text <> Convert.ToString(read("answer"))) Then
+                ElseIf (Button4.Text <> Convert.ToString(conn.read("answer"))) Then
                     Button4.BackColor = Color.DarkRed
-                    If (Button2.Text = Convert.ToString(read("answer"))) Then
+                    If (Button2.Text = Convert.ToString(conn.read("answer"))) Then
                         Button2.BackColor = Color.DarkGreen
                         Button3.BackColor = Color.DarkRed
                         Button1.BackColor = Color.DarkRed
-                    ElseIf (Button3.Text = Convert.ToString(read("answer"))) Then
+                    ElseIf (Button3.Text = Convert.ToString(conn.read("answer"))) Then
                         Button3.BackColor = Color.DarkGreen
                         Button2.BackColor = Color.DarkRed
                         Button1.BackColor = Color.DarkRed
-                    ElseIf (Button1.Text = Convert.ToString(read("answer"))) Then
+                    ElseIf (Button1.Text = Convert.ToString(conn.read("answer"))) Then
                         Button1.BackColor = Color.DarkGreen
                         Button3.BackColor = Color.DarkRed
                         Button2.BackColor = Color.DarkRed
                     End If
                 End If
             End While
-            connection.Close()
+            conn.Close()
         Catch ex As MySqlException
             MessageBox.Show(ex.Message)
         End Try
@@ -309,24 +281,17 @@ Public Class Form4
             Button2.BackColor = Color.DimGray
             Button3.BackColor = Color.DimGray
             Button4.BackColor = Color.DimGray
-            connection = New MySqlConnection
-            command = New MySqlCommand("select * from trivia where id != '" + question_ID + "' order by RAND() Limit 1", connection)
-            connection.ConnectionString = "server=localhost;userid=root;password=P@ssw0rd;database=disco_trivia"
             Try
-                connection.Open()
-                Dim read As MySqlDataReader = command.ExecuteReader
-
-
-                While read.Read
-                    'Label3.Text = Convert.ToString(score)
-                    Label2.Text = Convert.ToString(read("question"))
-                    Button1.Text = Convert.ToString(read("choice_1"))
-                    Button2.Text = Convert.ToString(read("choice_2"))
-                    Button3.Text = Convert.ToString(read("choice_3"))
-                    Button4.Text = Convert.ToString(read("choice_4"))
-                    question_ID = Convert.ToString(read("id"))
+                conn = New connection("select * from trivia where id != '" + question_ID + "' order by RAND() Limit 1")
+                While conn.read.Read
+                    Label2.Text = Convert.ToString(conn.read("question"))
+                    Button1.Text = Convert.ToString(conn.read("choice_1"))
+                    Button2.Text = Convert.ToString(conn.read("choice_2"))
+                    Button3.Text = Convert.ToString(conn.read("choice_3"))
+                    Button4.Text = Convert.ToString(conn.read("choice_4"))
+                    question_ID = Convert.ToString(conn.read("id"))
                 End While
-                connection.Close()
+                conn.Close()
             Catch ex As MySqlException
                 MessageBox.Show(ex.Message)
             End Try
